@@ -9,7 +9,7 @@ from transformers import AutoTokenizer, DataCollatorWithPadding
 
 
 class COROSEOFDataModule(LightningDataModule):
-    CLASS_NAMES = set(["descriptive", "direct", "non-offensive", "offensive", "reporting"])
+    CLASS_NAMES = {"descriptive", "direct", "non-offensive", "offensive", "reporting"}
     INT_TO_STR = {index: name for index, name in enumerate(sorted(CLASS_NAMES))}
     STR_TO_INT = {name: index for index, name in enumerate(sorted(CLASS_NAMES))}
     STAGE_FIT = "fit"
@@ -36,7 +36,9 @@ class COROSEOFDataModule(LightningDataModule):
 
     def setup(self, stage: str):
         if stage == COROSEOFDataModule.STAGE_FIT:
-            dataset = datasets.load_dataset("csv", data_files={"data": "../../data/train_data.csv"})
+            dataset = datasets.load_dataset(
+                "csv", data_files={"data": "../../data/train_data.csv"}
+            )
             dataset = dataset.rename_columns({"Final Labels": "label", "Text": "text"})
             dataset = dataset.remove_columns(["Id"])
             dataset = dataset["data"]
@@ -83,8 +85,7 @@ class COROSEOFDataModule(LightningDataModule):
         )
 
     def normalize(self, batch):
-        """
-        This function should be used before tokenizing the input string.
+        """This function should be used before tokenizing the input string.
 
         Normalizes the input string in the following ways:
         -> Converts from ş to ș, ţ to ț, etc.

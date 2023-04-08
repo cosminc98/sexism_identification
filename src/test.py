@@ -38,7 +38,7 @@ def main():
 
     preds = np.argmax(np.array(final_ensamble_prediction), axis=-1)
 
-    with open(f"./subs/nitro-robertweet-nlp-v2.1.0.csv", "w", newline="") as csvfile:
+    with open("./subs/nitro-robertweet-nlp-v2.1.0.csv", "w", newline="") as csvfile:
         data = []
         for i, pred in enumerate(preds):
             data.append([i, COROSEOFDataModule.INT_TO_STR[pred]])
