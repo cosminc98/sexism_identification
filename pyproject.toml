@@ -34,14 +34,14 @@ recursive = true
 targets = "src"
 
 [tool.black]
-line-length = 120
+line-length = 100
 fast = true
 
 [tool.coverage.run]
 branch = true
 
 [tool.flake8]
-max-line-length = 120
+max-line-length = 100
 select = "F,E,W,B,B901,B902,B903"
 exclude = [
     ".eggs",
@@ -187,7 +187,7 @@ variable-naming-style="snake_case"
 ignore-long-lines="^\\s*(# )?.*['\"]?<?https?://\\S+>?"
 indent-after-paren=4
 indent-string='    '
-max-line-length=120
+max-line-length=100
 max-module-lines=1000
 single-line-class-stmt="no"
 single-line-if-stmt="no"
