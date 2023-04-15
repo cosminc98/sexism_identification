@@ -9,8 +9,8 @@ from src.data.coroseof_datamodule import COROSEOFDataModule
 @pytest.mark.parametrize("batch_size", [32, 128])
 def test_coroseof_datamodule(batch_size):
     dm = COROSEOFDataModule(
-        train_path="../data/ro/train_data.csv",
-        test_path="../data/ro/test_data.csv",
+        train_path="./data/ro/train_data.csv",
+        test_path="./data/ro/test_data.csv",
         key_labels="labels",
         tokenizer_name_or_path="dumitrescustefan/bert-base-romanian-uncased-v1",
         train_batch_size=batch_size,
