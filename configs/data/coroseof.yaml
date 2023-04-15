@@ -1,0 +1,26 @@
+labels: ["descriptive", "direct", "non-offensive", "offensive", "reporting"]
+
+id2label: ${id2label:${.labels}}
+label2id: ${label2id:${.labels}}
+num_labels: ${len:${.labels}}
+
+stage: "fit"
+train_batch_size: 64
+eval_batch_size: 64
+
+key_labels: "labels"
+
+train_path: ${paths.data_dir}/ro/train_data.csv
+test_path: ${paths.data_dir}/ro/test_data.csv
+
+constructor:
+  _target_: src.data.coroseof_datamodule.COROSEOFDataModule
+  train_path: ${data.train_path}
+  test_path: ${data.test_path}
+  key_labels: ${data.key_labels}
+  tokenizer_name_or_path: ${model.base_model}
+  max_seq_length: ${model.max_seq_length}
+  train_batch_size: ${data.train_batch_size}
+  eval_batch_size: ${data.eval_batch_size}
+  stage: ${data.stage}
+  seed: ${seed}

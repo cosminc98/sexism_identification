@@ -1,5 +1,5 @@
 import re
-from typing import Union
+from typing import Optional, TypeVar
 
 import datasets
 import emoji
@@ -7,56 +7,69 @@ from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader
 from transformers import AutoTokenizer, DataCollatorWithPadding
 
+DatasetType = TypeVar("DatasetType", datasets.Dataset, datasets.DatasetDict)
+
 
 class COROSEOFDataModule(LightningDataModule):
-    CLASS_NAMES = {"descriptive", "direct", "non-offensive", "offensive", "reporting"}
-    INT_TO_STR = {index: name for index, name in enumerate(sorted(CLASS_NAMES))}
-    STR_TO_INT = {name: index for index, name in enumerate(sorted(CLASS_NAMES))}
     STAGE_FIT = "fit"
     STAGE_TEST = "test"
     STAGE_PREDICT = "predict"
 
+    KEY_TEXT = "text"
+
     def __init__(
         self,
-        model_name_or_path: str,
+        train_path: str,
+        test_path: str,
+        key_labels: str,
+        tokenizer_name_or_path: str,
         max_seq_length: int = 128,
         train_batch_size: int = 32,
         eval_batch_size: int = 32,
+        stage: Optional[str] = None,
         seed: int = 666013,
     ):
         super().__init__()
-        self.model_name_or_path = model_name_or_path
+        self.key_labels = key_labels
+        self.train_path = train_path
+        self.test_path = test_path
+        self.tokenizer_name_or_path = tokenizer_name_or_path
         self.max_seq_length = max_seq_length
         self.train_batch_size = train_batch_size
         self.eval_batch_size = eval_batch_size
         self.seed = seed
 
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name_or_path, use_fast=True)
+        self.tokenizer = AutoTokenizer.from_pretrained(self.tokenizer_name_or_path, use_fast=True)
         self.data_collator = DataCollatorWithPadding(tokenizer=self.tokenizer)
+
+        if stage is not None:
+            self.setup(stage)
 
     def setup(self, stage: str):
         if stage == COROSEOFDataModule.STAGE_FIT:
-            dataset = datasets.load_dataset(
-                "csv", data_files={"data": "../../data/train_data.csv"}
+            dataset: datasets.DatasetDict = datasets.load_dataset(
+                "csv", data_files={"data": self.train_path}
             )
-            dataset = dataset.rename_columns({"Final Labels": "label", "Text": "text"})
+            dataset = dataset.rename_columns(
+                {"Final Labels": self.key_labels, "Text": self.KEY_TEXT}
+            )
             dataset = dataset.remove_columns(["Id"])
-            dataset = dataset["data"]
-            dataset = dataset.class_encode_column("label")
+            dataset: datasets.Dataset = dataset["data"]
+            dataset = dataset.class_encode_column(self.key_labels)
 
             # perform train / validation split
             ds_split = dataset.train_test_split(
-                test_size=0.2, stratify_by_column="label", seed=self.seed
+                test_size=0.2, stratify_by_column=self.key_labels, seed=self.seed
             )
 
             ds_split = self.process_dataset(ds_split)
-            ds_split.set_format("torch", columns=["input_ids", "attention_mask", "label"])
+            ds_split.set_format("torch", columns=["input_ids", "attention_mask", self.key_labels])
 
             self.train_dataset = ds_split["train"]
             self.val_dataset = ds_split["test"]
 
         elif stage == COROSEOFDataModule.STAGE_TEST:
-            dataset = datasets.load_dataset("csv", data_files={"data": "../../data/test_data.csv"})
+            dataset = datasets.load_dataset("csv", data_files={"data": self.test_path})
             dataset = dataset.rename_columns({"Text": "text", "Id": "id"})
             dataset = dataset["data"]
 
@@ -127,7 +140,7 @@ class COROSEOFDataModule(LightningDataModule):
 
         return {"text": sentence}
 
-    def process_dataset(self, dataset: Union[datasets.Dataset, datasets.DatasetDict]):
+    def process_dataset(self, dataset: DatasetType) -> DatasetType:
         # normalize text
         dataset = dataset.map(lambda batch: self.normalize(batch), batched=False)
 
