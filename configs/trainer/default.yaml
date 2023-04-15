@@ -5,7 +5,7 @@ evaluation_strategy: "epoch"
 save_strategy: "epoch"
 load_best_model_at_end: True
 
-output_dir: ${paths.work_dir}
+output_dir: ${paths.checkpoints_dir}
 weight_decay: ${model.optimizer.weight_decay}
 learning_rate: ${model.optimizer.learning_rate}
 per_device_train_batch_size: ${data.train_batch_size}
