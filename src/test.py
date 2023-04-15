@@ -1,53 +1,68 @@
-import csv
+import argparse
+import os
 
-import numpy as np
-from datasets import load_dataset
-from transformers import AutoModelForSequenceClassification, Trainer
+import hydra
+import pandas as pd
+import pyrootutils
 
-from constants import BASE_MODEL, SEED
-from data.coroseof_datamodule import COROSEOFDataModule
+from predict import DecisionWithoutMajority, EnsembleError, ensemble_predict
+from utils.config import register_resolvers
 
-
-def load_model(checkpoint_path: str):
-    model = AutoModelForSequenceClassification.from_pretrained(checkpoint_path)
-
-    trainer = Trainer(model=model)
-
-    return trainer
+pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
 
 
-def main():
-    ensamble_list = ["./nitro-robertlarge-nlp-v1.9.0/checkpoint-1952"]
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--models",
+        type=str,
+        nargs="+",
+        required=True,
+        help=(
+            "An odd number (e.g. 1, 3, 5, etc.) of model checkpoints. "
+            + "Predictions will be used as an ensemble. If a majority of "
+            + "models choose a given label then it is chosen."
+        ),
+    )
+    parser.add_argument(
+        "--submission-name",
+        type=str,
+        default="submission.csv",
+        help="The path of the .csv file with the predicted labels.",
+    )
+    args = parser.parse_args()
+    if len(args.models) % 2 == 0:
+        raise EnsembleError("Must have an odd number of models in the ensemble.")
+    return args
 
-    dm = COROSEOFDataModule(BASE_MODEL, seed=SEED)
-    dm.setup(COROSEOFDataModule.STAGE_TEST)
 
-    ensamble_predictions = []
-    for model in ensamble_list:
-        trainer = load_model(model)
+def main(args: argparse.Namespace):
+    hydra.initialize(version_base="1.3", config_path="../configs")
+    cfg = hydra.compose(config_name="test.yaml")
 
-        predictions = trainer.predict(dm.test_dataset)
-        ensamble_predictions.append(predictions)
+    register_resolvers()
 
-        del trainer
+    data_module = hydra.utils.instantiate(cfg.data.constructor)
 
-    final_ensamble_prediction = ensamble_predictions[0].predictions
+    predictions = ensemble_predict(
+        checkpoints=args.models,
+        dataset=data_module.test_dataset,
+        model_constructor=cfg.model.constructor_predict,
+        no_majority_decision=DecisionWithoutMajority.RANDOM,
+        id2label=cfg.data.id2label,
+        seed=cfg.seed,
+    )
 
-    for i in range(1, len(ensamble_predictions)):
-        final_ensamble_prediction = final_ensamble_prediction + ensamble_predictions[i].predictions
-
-    preds = np.argmax(np.array(final_ensamble_prediction), axis=-1)
-
-    with open("./subs/nitro-robertweet-nlp-v2.1.0.csv", "w", newline="") as csvfile:
-        data = []
-        for i, pred in enumerate(preds):
-            data.append([i, COROSEOFDataModule.INT_TO_STR[pred]])
-
-        header = ["Id", "Label"]
-        writer = csv.writer(csvfile)
-        writer.writerow(header)
-        writer.writerows(data)
+    df = pd.DataFrame.from_dict(
+        {
+            "Id": range(len(predictions)),
+            "Label": [pred.label[1] for pred in predictions],
+        }
+    )
+    if not os.path.exists(cfg.paths.submissions_dir):
+        os.makedirs(cfg.paths.submissions_dir)
+    df.to_csv(os.path.join(cfg.paths.submissions_dir, args.submission_name), index=False)
 
 
 if __name__ == "__main__":
-    main()
+    main(parse_args())

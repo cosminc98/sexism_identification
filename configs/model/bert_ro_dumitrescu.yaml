@@ -15,3 +15,7 @@ constructor:
   id2label: ${id2label:${data.labels}}
   label2id: ${label2id:${data.labels}}
   classifier_dropout: 0.1
+
+constructor_predict:
+  _target_: transformers.AutoModelForSequenceClassification.from_pretrained
+  _partial_: true

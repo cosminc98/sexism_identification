@@ -1,8 +1,10 @@
 import re
-from typing import Optional, TypeVar
+import sys
+from typing import List, Optional, TypeVar
 
 import datasets
 import emoji
+import pandas as pd
 from pytorch_lightning import LightningDataModule
 from torch.utils.data import DataLoader
 from transformers import AutoTokenizer, DataCollatorWithPadding
@@ -42,10 +44,12 @@ class COROSEOFDataModule(LightningDataModule):
         self.tokenizer = AutoTokenizer.from_pretrained(self.tokenizer_name_or_path, use_fast=True)
         self.data_collator = DataCollatorWithPadding(tokenizer=self.tokenizer)
 
+        self.stage = None
         if stage is not None:
             self.setup(stage)
 
     def setup(self, stage: str):
+        self.stage = stage
         if stage == COROSEOFDataModule.STAGE_FIT:
             dataset: datasets.DatasetDict = datasets.load_dataset(
                 "csv", data_files={"data": self.train_path}
@@ -78,8 +82,19 @@ class COROSEOFDataModule(LightningDataModule):
             self.test_dataset = dataset
 
         elif stage == COROSEOFDataModule.STAGE_PREDICT:
-            raise NotImplementedError(f'Stage "{stage}" not implemented.')
+            lines: List[str] = []
+            for line in sys.stdin:
+                line = line.rstrip()
+                if line == "[EOF]":
+                    break
+                lines.append(line)
+            df_predict = pd.DataFrame.from_dict({"text": lines})
 
+            dataset = datasets.Dataset.from_pandas(df_predict)
+
+            dataset = self.process_dataset(dataset)
+
+            self.predict_dataset = dataset
         else:
             raise ValueError(f'Stage "{stage}" not recognized.')
 
