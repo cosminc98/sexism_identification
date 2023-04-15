@@ -3,30 +3,29 @@ from pathlib import Path
 import pytest
 import torch
 
-from src.data.mnist_datamodule import MNISTDataModule
+from src.data.coroseof_datamodule import COROSEOFDataModule
 
 
 @pytest.mark.parametrize("batch_size", [32, 128])
-def test_mnist_datamodule(batch_size):
-    data_dir = "data/"
+def test_coroseof_datamodule(batch_size):
+    dm = COROSEOFDataModule(
+        train_path="./data/ro/train_data.csv",
+        test_path="./data/ro/test_data.csv",
+        key_labels="labels",
+        tokenizer_name_or_path="dumitrescustefan/bert-base-romanian-uncased-v1",
+        train_batch_size=batch_size,
+        eval_batch_size=batch_size,
+    )
 
-    dm = MNISTDataModule(data_dir=data_dir, batch_size=batch_size)
-    dm.prepare_data()
+    dm.setup("fit")
+    assert dm.train_dataset
 
-    assert not dm.data_train and not dm.data_val and not dm.data_test
-    assert Path(data_dir, "MNIST").exists()
-    assert Path(data_dir, "MNIST", "raw").exists()
-
-    dm.setup()
-    assert dm.data_train and dm.data_val and dm.data_test
-    assert dm.train_dataloader() and dm.val_dataloader() and dm.test_dataloader()
-
-    num_datapoints = len(dm.data_train) + len(dm.data_val) + len(dm.data_test)
-    assert num_datapoints == 70_000
+    num_datapoints = len(dm.train_dataset)
+    assert num_datapoints == 31_206
 
     batch = next(iter(dm.train_dataloader()))
-    x, y = batch
+    x, y = batch["input_ids"], batch["labels"]
     assert len(x) == batch_size
     assert len(y) == batch_size
-    assert x.dtype == torch.float32
+    assert x.dtype == torch.int64
     assert y.dtype == torch.int64

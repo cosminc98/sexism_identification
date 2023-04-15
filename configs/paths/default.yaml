@@ -14,5 +14,16 @@ log_dir: ${paths.root_dir}/logs/
 # use it to store all files generated during the run, like ckpts and metrics
 output_dir: ${hydra:runtime.output_dir}
 
+# path to directory where model checkpoints are saved
+checkpoints_dir: ${hydra:runtime.output_dir}/checkpoints
+
+# path to the directory where kaggle submission files are created
+submissions_dir: ${paths.root_dir}/submissions
+
+# path to the directory where prediction files are created; these are the result
+# of the "predict.py" script, which can take input from stdin, where each line
+# is a different sample to be predicted on
+predictions_dir: ${paths.root_dir}/predictions
+
 # path to working directory
 work_dir: ${hydra:runtime.cwd}

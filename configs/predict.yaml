@@ -7,14 +7,12 @@ defaults:
   - data: coroseof.yaml
   - model: bert_ro_dumitrescu.yaml
   - paths: default.yaml
-  - trainer: default.yaml
-  - hydra: default.yaml
 
 # task name, determines output directory path
-task_name: "train"
+task_name: "predict"
 
 # stage name; used in the initializing the dataset
-stage: "fit"
+stage: "predict"
 
 # seed for random number generators in pytorch, numpy and python.random
 seed: 66
