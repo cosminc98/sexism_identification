@@ -11,19 +11,16 @@ def test_train_config(cfg_train: DictConfig):
 
     HydraConfig().set_config(cfg_train)
 
-    hydra.utils.instantiate(cfg_train.data)
-    hydra.utils.instantiate(cfg_train.model)
-    hydra.utils.instantiate(cfg_train.trainer)
+    hydra.utils.instantiate(cfg_train.data.constructor)
+    hydra.utils.instantiate(cfg_train.model.constructor)
 
 
-def test_eval_config(cfg_eval: DictConfig):
-    assert cfg_eval
-    assert cfg_eval.data
-    assert cfg_eval.model
-    assert cfg_eval.trainer
+def test_test_config(cfg_test: DictConfig):
+    assert cfg_test
+    assert cfg_test.data
+    assert cfg_test.model
 
-    HydraConfig().set_config(cfg_eval)
+    HydraConfig().set_config(cfg_test)
 
-    hydra.utils.instantiate(cfg_eval.data)
-    hydra.utils.instantiate(cfg_eval.model)
-    hydra.utils.instantiate(cfg_eval.trainer)
+    hydra.utils.instantiate(cfg_test.data.constructor)
+    hydra.utils.instantiate(cfg_test.model.constructor_predict)
