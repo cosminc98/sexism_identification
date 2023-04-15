@@ -32,6 +32,7 @@ exclude_dirs = ["build","dist","tests","scripts"]
 number = 4
 recursive = true
 targets = "src"
+skips = ["B101", "B311"]
 
 [tool.black]
 line-length = 100

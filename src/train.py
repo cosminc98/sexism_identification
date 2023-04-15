@@ -5,8 +5,8 @@ import lightning as L
 import pyrootutils
 from omegaconf import DictConfig
 
-from utils.config import register_resolvers
 from trainers.imbalanced_dataset_trainer import ImbalancedDatasetTrainer
+from utils.config import register_resolvers
 
 pyrootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
 
