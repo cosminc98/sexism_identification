@@ -13,5 +13,8 @@ defaults:
 # task name, determines output directory path
 task_name: "train"
 
+# stage name; used in the initializing the dataset
+stage: "fit"
+
 # seed for random number generators in pytorch, numpy and python.random
 seed: 66
