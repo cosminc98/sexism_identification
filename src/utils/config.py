@@ -12,6 +12,9 @@ def label2id(label_names: Iterable[str]) -> Dict[str, int]:
 
 
 def register_resolvers():
-    OmegaConf.register_new_resolver("len", lambda x: len(x))
-    OmegaConf.register_new_resolver("id2label", id2label)
-    OmegaConf.register_new_resolver("label2id", label2id)
+    if not OmegaConf.has_resolver("len"):
+        OmegaConf.register_new_resolver("len", lambda x: len(x))
+    if not OmegaConf.has_resolver("id2label"):
+        OmegaConf.register_new_resolver("id2label", id2label)
+    if not OmegaConf.has_resolver("label2id"):
+        OmegaConf.register_new_resolver("label2id", label2id)

@@ -7,6 +7,7 @@ from datasets import Dataset
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, f1_score
 from transformers import (
     DataCollator,
+    EvalPrediction,
     PreTrainedModel,
     PreTrainedTokenizerBase,
     Trainer,
@@ -57,7 +58,7 @@ class ImbalancedDatasetTrainer(Trainer):
 
         self.imbalance_weights = torch.tensor(self.imbalance_weights).to(self.args.device)
 
-    def compute_metrics(self, pred):
+    def compute_metrics(self, pred: EvalPrediction):
         labels = pred.label_ids
         preds = pred.predictions.argmax(-1)
 

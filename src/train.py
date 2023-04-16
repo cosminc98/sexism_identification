@@ -3,6 +3,7 @@ from typing import Optional
 import hydra
 import lightning as L
 import pyrootutils
+import torch
 from omegaconf import DictConfig
 
 from trainers.imbalanced_dataset_trainer import ImbalancedDatasetTrainer
@@ -31,6 +32,25 @@ def train(cfg: DictConfig):
     )
 
     trainer.train()
+    return trainer.evaluate()
+
+
+def get_metric_value(metric_dict: dict, metric_name: Optional[str]) -> float:
+    """Safely retrieves value of the metric logged in LightningModule."""
+
+    if metric_name is None:
+        return None
+
+    if metric_name not in metric_dict:
+        raise Exception(
+            f"Metric value not found! <metric_name={metric_name}>\n"
+            "Make sure metric name logged in LightningModule is correct!\n"
+            "Make sure `optimized_metric` name in `hparams_search` config is correct!"
+        )
+
+    metric_value = metric_dict[metric_name]
+
+    return metric_value
 
 
 @hydra.main(version_base="1.3", config_path="../configs", config_name="train.yaml")
@@ -43,7 +63,19 @@ def main(cfg: DictConfig) -> Optional[float]:
     if cfg.get("seed"):
         L.seed_everything(cfg.seed, workers=True)
 
-    train(cfg)
+    # train the model
+    metric_dict = train(cfg)
+
+    # safely retrieve metric value for hydra-based hyperparameter optimization
+    metric_value = get_metric_value(
+        metric_dict=metric_dict, metric_name=cfg.get("optimized_metric")
+    )
+
+    # avoid memory fragmentation in multiruns
+    torch.cuda.empty_cache()
+
+    # return optimized metric
+    return metric_value
 
 
 if __name__ == "__main__":
