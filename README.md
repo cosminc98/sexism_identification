@@ -225,6 +225,9 @@ We have also attempted to improve our results through `ensemble` techniques and 
 
 Thanks to our [devcontainer setup](https://containers.dev/) you can run our model right here on GitHub. Just [create a new codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace-for-a-repository#creating-a-codespace) and follow the steps below! Keep in mind, training requires a GPU, which is not available on GitHub, so you might want to use Visual Studio Code for that.
 
+> **Warning**
+> If running in GitHub Codespaces (or without an available GPU) you need to comment the '"runArgs": ["--gpus", "all"]' lines from the .devcontainer/devcontainer.json file. Otherwise docker will give an error and your container will not start.
+
 ### Predict with a pretrained model
 Keep in mind that a prediction will be made for each line of text.
 ```bash
