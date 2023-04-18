@@ -69,104 +69,94 @@ Our team's `approach` consisted of the following steps:
 
 Our team achieved `4th` place out of `46 teams` in the competition, obtaining a `56.84% balanced accuracy` on the private test. This was the chosen metric for this competition. Our approach proved to be effective in achieving a high level of accuracy on this challenging task.
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;}
-.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-lgs3{background-color:#c0c0c0;border-color:inherit;color:#000000;font-weight:bold;text-align:left;vertical-align:top}
-.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
-.tg .tg-0lax{text-align:left;vertical-align:top}
-</style>
-<table class="tg">
+<table>
 <thead>
   <tr>
-    <th class="tg-lgs3">Ground Truth</th>
-    <th class="tg-lgs3">Predicted</th>
-    <th class="tg-lgs3">Text</th>
+    <th>Ground Truth</th>
+    <th>Predicted</th>
+    <th>Text</th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td class="tg-0pky">non-offensive</td>
-    <td class="tg-0pky">descriptive</td>
-    <td class="tg-0pky">Bărbații sunt de obicei mai înalți decât femeile, în medie</td>
+    <td>non-offensive</td>
+    <td>descriptive</td>
+    <td>Bărbații sunt de obicei mai înalți decât femeile, în medie</td>
   </tr>
   <tr>
-    <td class="tg-0pky">non-offensive</td>
-    <td class="tg-0pky">non-offensive</td>
-    <td class="tg-0pky">Toate genurile merită să se simtă în siguranță în comunitățile lor</td>
+    <td>non-offensive</td>
+    <td>non-offensive</td>
+    <td>Toate genurile merită să se simtă în siguranță în comunitățile lor</td>
   </tr>
   <tr>
-    <td class="tg-0pky">non-offensive</td>
-    <td class="tg-0pky">non-offensive</td>
-    <td class="tg-0pky">Am o nevastă și trei copii.</td>
+    <td>non-offensive</td>
+    <td>non-offensive</td>
+    <td>Am o nevastă și trei copii.</td>
   </tr>
   <tr>
-    <td class="tg-0pky">offensive</td>
-    <td class="tg-0pky">offensive</td>
-    <td class="tg-0pky">Sa mi bag pula in toate numerel de inmatriculare de pe planeta asta</td>
+    <td>offensive</td>
+    <td>offensive</td>
+    <td>Sa mi bag pula in toate numerel de inmatriculare de pe planeta asta</td>
   </tr>
   <tr>
-    <td class="tg-0lax">offensive</td>
-    <td class="tg-0lax">offensive</td>
-    <td class="tg-0lax">Învață bă unde sunt tastele anal-fagotule</td>
+    <td>offensive</td>
+    <td>offensive</td>
+    <td>Învață bă unde sunt tastele anal-fagotule</td>
   </tr>
   <tr>
-    <td class="tg-0lax">offensive</td>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">Sa ma sugi si de pula si de penis</td>
+    <td>offensive</td>
+    <td>direct</td>
+    <td>Sa ma sugi si de pula si de penis</td>
   </tr>
   <tr>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">Care e diferența dintre o femeie și o vacă? Vacii nu se enervează când le spui că au nevoie de mai mult lapte.</td>
+    <td>descriptive</td>
+    <td>descriptive</td>
+    <td>Care e diferența dintre o femeie și o vacă? Vacii nu se enervează când le spui că au nevoie de mai mult lapte.</td>
   </tr>
   <tr>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">Bărbații sunt mai potriviți pentru poziții de putere.</td>
+    <td>descriptive</td>
+    <td>descriptive</td>
+    <td>Bărbații sunt mai potriviți pentru poziții de putere.</td>
   </tr>
   <tr>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">Femeile au locul în bucătărie</td>
+    <td>descriptive</td>
+    <td>descriptive</td>
+    <td>Femeile au locul în bucătărie</td>
   </tr>
   <tr>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">Sa iti dau cu pula peste cur pana iti raman urme rosii</td>
+    <td>direct</td>
+    <td>direct</td>
+    <td>Sa iti dau cu pula peste cur pana iti raman urme rosii</td>
   </tr>
   <tr>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">Nu vezi fă cât ești de grasă că te scoate cu elicopterul dacă ai căzut în gaura de canalizare</td>
+    <td>direct</td>
+    <td>direct</td>
+    <td>Nu vezi fă cât ești de grasă că te scoate cu elicopterul dacă ai căzut în gaura de canalizare</td>
   </tr>
   <tr>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">direct</td>
-    <td class="tg-0lax">Sunt 20 de grade afară, dar pizda ta are mai multe grade de alcoolemie după ce am stropit-o pe față cu șampanie</td>
+    <td>direct</td>
+    <td>direct</td>
+    <td>Sunt 20 de grade afară, dar pizda ta are mai multe grade de alcoolemie după ce am stropit-o pe față cu șampanie</td>
   </tr>
   <tr>
-    <td class="tg-0lax">reporting</td>
-    <td class="tg-0lax">reporting</t~d>
-    <td class="tg-0lax">Normalizarea hărțuirii și a agresiunii sexuale, adesea prin prezentarea personajelor feminine ca fiind dispuse sau meritând un astfel de tratament</td>
+    <td>reporting</td>
+    <td>reporting</td>
+    <td>Normalizarea hărțuirii și a agresiunii sexuale, adesea prin prezentarea personajelor feminine ca fiind dispuse sau meritând un astfel de tratament</td>
   </tr>
   <tr>
-    <td class="tg-0lax">reporting</td>
-    <td class="tg-0lax">reporting</td>
-    <td class="tg-0lax">O tanara a fost violata de catre un fost iubit.</td>
+    <td>reporting</td>
+    <td>reporting</td>
+    <td>O tanara a fost violata de catre un fost iubit.</td>
   </tr>
   <tr>
-    <td class="tg-0lax">reporting</td>
-    <td class="tg-0lax">descriptive</td>
-    <td class="tg-0lax">Femeilor li se refuză dreptul de a deține proprietate sau de a avea controlul asupra propriilor finanțe în multe societăți</td>
+    <td>reporting</td>
+    <td>descriptive</td>
+    <td>Femeilor li se refuză dreptul de a deține proprietate sau de a avea controlul asupra propriilor finanțe în multe societăți</td>
   </tr>
 </tbody>
 </table>
 
-As we can see in the table above, the model is not perfect and (because of the metric choice of the challenge) it tends to predict false positives (sexist or offensive instead of the most common label of non-offensive). In practice, more data would be needed and a higher threshold would be set for the decision to flag a comment for sexist or offensive content.
+As we can see in the table above, the model works most of the time but, because of the metric choice of the challenge, it tends to predict false positives (sexist or offensive instead of the most common label of non-offensive). In practice, more data would be needed and a higher threshold would be set for the decision to flag a comment for sexist or offensive content.
 
 ## Other Attempts
 
