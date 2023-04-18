@@ -6,6 +6,9 @@ save_strategy: "epoch"
 save_total_limit: 2
 load_best_model_at_end: True
 
+metric_for_best_model: "eval_loss"
+greater_is_better: False
+
 output_dir: ${paths.checkpoints_dir}
 weight_decay: ${model.optimizer.weight_decay}
 learning_rate: ${model.optimizer.learning_rate}
