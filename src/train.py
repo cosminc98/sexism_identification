@@ -32,6 +32,10 @@ def train(cfg: DictConfig):
     )
 
     trainer.train()
+
+    if cfg.trainer.get("push_to_hub") is True:
+        trainer.push_to_hub()
+
     return trainer.evaluate()
 
 
