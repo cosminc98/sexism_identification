@@ -1,3 +1,27 @@
+<div align="center">
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+[![python](https://img.shields.io/badge/-Python_3.8_%7C_3.9_%7C_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![black](https://img.shields.io/badge/Code%20Style-Black-black.svg?labelColor=gray)](https://black.readthedocs.io/en/stable/)
+[![isort](https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336)](https://pycqa.github.io/isort/)
+<br>
+[![pytorch](https://img.shields.io/badge/PyTorch_2.0+-ee4c2c?logo=pytorch&logoColor=white)](https://pytorch.org/get-started/locally/)
+[![lightning](https://img.shields.io/badge/-Lightning_2.0+-792ee5?logo=pytorchlightning&logoColor=white)](https://pytorchlightning.ai/)
+[![hydra](https://img.shields.io/badge/Config-Hydra_1.3-89b8cd)](https://hydra.cc/)
+<br>
+[![tests](https://github.com/cosminc98/sexism_identification/actions/workflows/test.yml/badge.svg)](https://github.com/cosminc98/sexism_identification/actions/workflows/test.yml)
+[![code-quality](https://github.com/cosminc98/sexism_identification/actions/workflows/code-quality-main.yaml/badge.svg)](https://github.com/cosminc98/sexism_identification/actions/workflows/code-quality-main.yaml)
+<br>
+[![license](https://img.shields.io/badge/License-MIT-green.svg?labelColor=gray)](https://github.com/cosminc98/sexism_identification#license)
+[![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/cosminc98/sexism_identification/pulls)
+[![contributors](https://img.shields.io/github/contributors/cosminc98/sexism_identification.svg)](https://github.com/cosminc98/sexism_identification/graphs/contributors)
+
+</div>
+
+<br>
+
 # Text Classification in Romanian Language
 
 This repository contains the code for our team's submission to a Natural Language Processing (NLP) competition ([Nitro](https://www.kaggle.com/competitions/nitro-language-processing-2)) hosted on Kaggle . The competition challenged participants to develop a pipeline for sexism text identification in the Romanian language.
@@ -7,6 +31,10 @@ This repository contains the code for our team's submission to a Natural Languag
 The task in this competition was to classify each text into one of `five` possible categories: (0) `Sexist Direct`, (1) `Sexist Descriptive`, (2) `Sexist Reporting`, (3) `Non-sexist Offensive`, and (4) `Non-sexist Non-offensive`.
 
 The data for this competition has been collected from a variety of sources, including social media networks such as Facebook, Twitter, and Reddit, web articles, and books.
+
+## Disclaimer
+
+
 
 ## Training Data
 
@@ -48,7 +76,55 @@ We have also attempted to improve our results through `ensemble` techniques and 
 
 ## \[TODO\]: Repository Structure
 
-## \[TODO\]: Getting Started
+## Getting Started
+
+### Predict with a pretrained model
+Keep in mind that a prediction will be made for each line of text.
+```bash
+# predict using text from a file
+cat data/ro/predict_example.txt | python src/predict.py --models cosminc98/sexism-identification-coroseof
+
+# see the results
+cat predictions/prediction.tsv
+
+# predict from stdin; after entering the command write however many sentences
+# you want and end with the with the [EOF] marker:
+#   Femeile au locul în bucătărie
+#   [EOF]
+python src/predict.py --models cosminc98/sexism-identification-coroseof
+```
+
+### Training a new model
+```bash
+# run a single training run with CoRoSeOf dataset and default hyperparameters
+python src/train.py
+
+# run hyperparameter search with the Optuna plugin from Hydra
+python src/train.py -m hparams_search=optuna
+```
+
+### Creating a new Kaggle Submission
+```bash
+# predict on the test set
+python src/test.py --models cosminc98/sexism-identification-coroseof
+```
+Now all you need to do is [upload](https://www.kaggle.com/competitions/nitro-language-processing-2/submissions) "submissions/submission.csv" to Kaggle.
+
+### Uploading to Hugging Face
+
+A pretrained model in the Romanian language is already available [on huggingface](https://huggingface.co/cosminc98/sexism-identification-coroseof).
+
+```bash
+pip install huggingface_hub
+
+# add your write token using
+huggingface-cli login
+
+echo "
+push_to_hub: True
+hub_model_id: \"<model-name>\"
+" >> configs/trainer/default.yaml
+```
 
 ## Team Members
 
@@ -59,3 +135,25 @@ We have also attempted to improve our results through `ensemble` techniques and 
 ## Contact
 
 If you have any questions about our approach or our code, please feel free to contact us at <iulian27_marius@yahoo.com>.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/cosminc98"><img src="https://avatars.githubusercontent.com/u/57830279?v=4?s=100" width="100px;" alt="Ștefan-Cosmin Ciocan"/><br /><sub><b>Ștefan-Cosmin Ciocan</b></sub></a><br /><a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=cosminc98" title="Code">💻</a> <a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=cosminc98" title="Documentation">📖</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!

@@ -1,0 +1,26 @@
+{
+  "projectName": "sexism_identification",
+  "projectOwner": "Ștefan-Cosmin Ciocan",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "cosminc98",
+      "name": "Ștefan-Cosmin Ciocan",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57830279?v=4",
+      "profile": "https://github.com/cosminc98",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "linkToUsage": false
+}
