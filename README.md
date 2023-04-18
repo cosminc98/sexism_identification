@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![python](https://img.shields.io/badge/-Python_3.8_%7C_3.9_%7C_3.10-blue?logo=python&logoColor=white)](https://github.com/pre-commit/pre-commit)
@@ -149,6 +149,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/cosminc98"><img src="https://avatars.githubusercontent.com/u/57830279?v=4?s=100" width="100px;" alt="Ștefan-Cosmin Ciocan"/><br /><sub><b>Ștefan-Cosmin Ciocan</b></sub></a><br /><a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=cosminc98" title="Code">💻</a> <a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=cosminc98" title="Documentation">📖</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/Iulian277"><img src="https://avatars.githubusercontent.com/u/31247431?v=4?s=100" width="100px;" alt="Iulian Taiatu"/><br /><sub><b>Iulian Taiatu</b></sub></a><br /><a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=Iulian277" title="Code">💻</a> <a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=Iulian277" title="Documentation">📖</a> <a href="#research-Iulian277" title="Research">🔬</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AndreiDumitrescu99"><img src="https://avatars.githubusercontent.com/u/65347453?v=4?s=100" width="100px;" alt="AndreiDumitrescu99"/><br /><sub><b>AndreiDumitrescu99</b></sub></a><br /><a href="https://github.com/Ștefan-Cosmin Ciocan/sexism_identification/commits?author=AndreiDumitrescu99" title="Code">💻</a> <a href="#research-AndreiDumitrescu99" title="Research">🔬</a></td>
     </tr>
   </tbody>
 </table>
