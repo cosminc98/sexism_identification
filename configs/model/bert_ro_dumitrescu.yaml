@@ -1,12 +1,14 @@
 base_model: "dumitrescustefan/bert-base-romanian-uncased-v1"
-max_seq_length: 128
+max_seq_length: 96
 
 optimizer:
-  weight_decay: 0.01
-  learning_rate: 2e-5
+  weight_decay: 0.08
+  learning_rate: 1e-4
 
 key_labels: "labels"
 key_logits: "logits"
+
+classifier_dropout: 0.43
 
 constructor:
   _target_: transformers.AutoModelForSequenceClassification.from_pretrained
@@ -14,7 +16,7 @@ constructor:
   num_labels: ${data.num_labels}
   id2label: ${id2label:${data.labels}}
   label2id: ${label2id:${data.labels}}
-  classifier_dropout: 0.1
+  classifier_dropout: ${model.classifier_dropout}
 
 constructor_predict:
   _target_: transformers.AutoModelForSequenceClassification.from_pretrained
