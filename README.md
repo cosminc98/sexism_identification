@@ -14,6 +14,7 @@
 [![license](https://img.shields.io/badge/License-MIT-green.svg?labelColor=gray)](https://github.com/cosminc98/sexism_identification#license)
 [![PRs](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/cosminc98/sexism_identification/pulls)
 [![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://huggingface.co/datasets/huggingface/documentation-images/raw/main/transformers-logo-dark.svg">
@@ -45,6 +46,7 @@ The task in this competition was to classify each text into one of `five` possib
 The data for this competition has been collected from a variety of sources, including social media networks such as Facebook, Twitter, and Reddit, web articles, and books.
 
 ## Disclaimer
+
 The data used in this project includes instances of sexism and hate speech Therefore, reader discretion is strongly advised. The contributors to this project strongly oppose discrimination based on gender, religion, race or any other kind. One of the goals of this project is to raise awareness about gender bias online.
 
 ## Training Data
@@ -166,7 +168,6 @@ We have also attempted to improve our results through `ensemble` techniques and 
 
 - Regarding backtranslation, although we tried to augment the dataset, we encountered difficulties due to the nature of the language being sexist and offensive. The back-translated phrases did not contain bad words, which resulted in limited improvement.
 
-
 ## Future Approaches
 
 - We believe that further improvements could be made by `better sanitizing` the dataset
@@ -226,10 +227,12 @@ We have also attempted to improve our results through `ensemble` techniques and 
 Thanks to our [devcontainer setup](https://containers.dev/) you can run our model right here on GitHub. Just [create a new codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/creating-a-codespace-for-a-repository#creating-a-codespace) and follow the steps below! Keep in mind, training requires a GPU, which is not available on GitHub, so you might want to use Visual Studio Code for that.
 
 > **Warning**
-> If running in GitHub Codespaces (or without an available GPU) you need to comment the '"runArgs": ["--gpus", "all"]' lines from the .devcontainer/devcontainer.json file. Otherwise docker will give an error and your container will not start.
+> If running in GitHub Codespaces (or without an available GPU) you need to comment the '"runArgs": \["--gpus", "all"\]' lines from the .devcontainer/devcontainer.json file. Otherwise docker will give an error and your container will not start.
 
 ### Predict with a pretrained model
+
 Keep in mind that a prediction will be made for each line of text.
+
 ```bash
 # predict using text from a file
 cat data/ro/predict_example.txt | python src/predict.py --models cosminc98/sexism-identification-coroseof
@@ -245,6 +248,7 @@ python src/predict.py --models cosminc98/sexism-identification-coroseof
 ```
 
 ### Training a new model
+
 ```bash
 # run a single training run with CoRoSeOf dataset and default hyperparameters
 # the model will be available in experiments/train/runs/
@@ -254,13 +258,16 @@ python src/train.py
 # the model will be available in experiments/train/multiruns/
 python src/train.py -m hparams_search=optuna
 ```
+
 The model
 
 ### Creating a new Kaggle Submission
+
 ```bash
 # predict on the test set
 python src/test.py --models cosminc98/sexism-identification-coroseof
 ```
+
 Now all you need to do is [upload](https://www.kaggle.com/competitions/nitro-language-processing-2/submissions) "submissions/submission.csv" to Kaggle.
 
 ### Uploading to Hugging Face
@@ -282,14 +289,18 @@ hub_model_id: \"<model-name>\"
 ## Contact
 
 If you have any questions about our approach or our code, please feel free to contact us at:
- -  <iulian27_marius@yahoo.com>
- -  <ciocan.cosmin98@gmail.com>
+
+- <iulian27_marius@yahoo.com>
+- <ciocan.cosmin98@gmail.com>
 
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
   <tbody>
     <tr>
@@ -301,6 +312,7 @@ If you have any questions about our approach or our code, please feel free to co
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
