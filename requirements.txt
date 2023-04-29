@@ -11,7 +11,7 @@ hydra-optuna-sweeper==1.2.0
 
 # ---- project specific ----- #
 transformers~=4.0
-datasets~=2.0
+datasets~=2.12
 scikit-learn~=1.0 # used to compute classification metrics
 emoji~=2.0        # text normalization of emojis
 
