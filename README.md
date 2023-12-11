@@ -98,17 +98,17 @@ Our team achieved `4th` place out of `46 teams` in the competition, obtaining a 
   <tr>
     <td>offensive</td>
     <td>offensive</td>
-    <td>Sa mi bag pula in toate numerel de inmatriculare de pe planeta asta</td>
+    <td>Sa mi bag p**a in toate numerel de inmatriculare de pe planeta asta</td>
   </tr>
   <tr>
     <td>offensive</td>
     <td>offensive</td>
-    <td>Învață bă unde sunt tastele anal-fagotule</td>
+    <td>Învață bă unde sunt tastele a**l-f**e</td>
   </tr>
   <tr>
     <td>offensive</td>
     <td>direct</td>
-    <td>Sa ma sugi si de pula si de penis</td>
+    <td>Sa ma sugi si de p**a si de p**s</td>
   </tr>
   <tr>
     <td>descriptive</td>
@@ -128,7 +128,7 @@ Our team achieved `4th` place out of `46 teams` in the competition, obtaining a 
   <tr>
     <td>direct</td>
     <td>direct</td>
-    <td>Sa iti dau cu pula peste cur pana iti raman urme rosii</td>
+    <td>Sa iti dau cu p**a peste c**r pana iti raman urme rosii</td>
   </tr>
   <tr>
     <td>direct</td>
@@ -138,7 +138,7 @@ Our team achieved `4th` place out of `46 teams` in the competition, obtaining a 
   <tr>
     <td>direct</td>
     <td>direct</td>
-    <td>Sunt 20 de grade afară, dar pizda ta are mai multe grade de alcoolemie după ce am stropit-o pe față cu șampanie</td>
+    <td>Sunt 20 de grade afară, dar p**a ta are mai multe grade de alcoolemie după ce am stropit-o pe față cu șampanie</td>
   </tr>
   <tr>
     <td>reporting</td>
